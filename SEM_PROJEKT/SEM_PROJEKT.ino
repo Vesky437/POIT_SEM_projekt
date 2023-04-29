@@ -23,8 +23,8 @@ float distanceCm;
 //float distanceInch;
 
 int sensorValue;
-int sensorLow = 600;
-int sensorHigh = 1100;
+int sensorLow = 0;
+int sensorHigh = 1023;
 
 void setup() {
   Serial.begin(9600); // Starts the serial communication
@@ -33,6 +33,7 @@ void setup() {
 }
 
 void loop() {
+
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -59,16 +60,28 @@ void loop() {
 
   //Luminosity
   sensorValue = analogRead(A0);
-  int Lum = map(sensorValue,sensorLow,sensorHigh, 0, 1023);
-  //Serial.print("Sensor Value: ");
-  //Serial.print(Lum);
-  //Serial.print('\n');
+  int Lum = map(sensorValue,sensorLow,sensorHigh, 0, 100);
+//  Serial.print("Sensor Value: ");
+//  Serial.print(Lum);
+//  Serial.print('\n');
+  int data = 0;
+  data = Serial.read() - '0';
+  //Serial.print(data);
+    
+  if(data == 1) 
+    {
+      Serial.print(distanceCm);
+      Serial.print(",");
+      Serial.print(Lum);
+      Serial.print('\n');
+    }
+    
+    
 
+     
   
-  Serial.print(distanceCm);
-  Serial.print(",");
-  Serial.print(Lum);
-  Serial.print('\n');
+  
+  
   
   delay(1000);
 }
