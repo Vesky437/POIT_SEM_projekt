@@ -47,6 +47,10 @@ void loop() {
   
   // Calculate the distance
   distanceCm = duration * SOUND_VELOCITY/2;
+  if (distanceCm > 200){
+    distanceCm = 200;
+  }
+
   
   // Convert to inches
   //distanceInch = distanceCm * CM_TO_INCH;
